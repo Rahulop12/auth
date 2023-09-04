@@ -19,6 +19,7 @@ class AuthService {
     required String name,
   }) async {
     try {
+      print("here");
       User user = User(
         id: '',
         name: name,
@@ -29,11 +30,15 @@ class AuthService {
 
       http.Response res = await http.post(
         Uri.parse('${Constants.uri}/api/signup'),
-        body: user.toJson(),
+        body: jsonEncode({"email": email, "password": password, "name": name}),
         headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+          "Content-type": "application/json",
+          "Accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
         },
       );
+
+      print(res);
 
       httpErrorHandle(
         response: res,
@@ -64,8 +69,10 @@ class AuthService {
           'email': email,
           'password': password,
         }),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
+        headers: {
+          "Content-type": "application/json",
+          "Accept": "application/json",
+          "Access-Control-Allow-Origin": "*"
         },
       );
       httpErrorHandle(
@@ -114,7 +121,10 @@ class AuthService {
       if (response == true) {
         http.Response userRes = await http.get(
           Uri.parse('${Constants.uri}/'),
-          headers: <String, String>{'Content-Type': 'application/json; charset=UTF-8', 'x-auth-token': token},
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token
+          },
         );
 
         userProvider.setUser(userRes.body);

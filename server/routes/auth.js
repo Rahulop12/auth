@@ -9,8 +9,11 @@ const auth = require("../middleware/auth");
 authRouter.post("/api/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    console.log(name);
 
     const existingUser = await User.findOne({ email });
+
+
     if (existingUser) {
       return res
         .status(400)
@@ -18,15 +21,17 @@ authRouter.post("/api/signup", async (req, res) => {
     }
 
     const hashedPassword = await bcryptjs.hash(password, 8);
-
+    console.log("hashed")
     let user = new User({
       email,
       password: hashedPassword,
       name,
     });
     user = await user.save();
+    console.log("abc")
     res.json(user);
   } catch (e) {
+    console.log("err")
     res.status(500).json({ error: e.message });
   }
 });

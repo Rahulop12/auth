@@ -1,15 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const authRouter = require("./routes/auth");
+mongoose.set('strictQuery', false);
 
-const PORT = process.env.PORT || 3000;
+
+const PORT = process.env.
+PORT || 3000;
 const app = express();
 
 app.use(express.json());
 app.use(authRouter);
 
 const DB =
-  "mongodb+srv://rivaan:test123@cluster0.lcq2qaw.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://Rahul:Rahul123@cluster0.hk2cfzm.mongodb.net/?retryWrites=true&w=majority";
 
 mongoose
   .connect(DB)

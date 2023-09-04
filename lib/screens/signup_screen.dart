@@ -16,7 +16,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController nameController = TextEditingController();
   final AuthService authService = AuthService();
 
-  void signupUser() {
+  void signupUser() async {
     authService.signUpUser(
       context: context,
       email: emailController.text,
@@ -61,7 +61,7 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           const SizedBox(height: 40),
           ElevatedButton(
-            onPressed: signupUser,
+            onPressed: () {},
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.blue),
               textStyle: MaterialStateProperty.all(
